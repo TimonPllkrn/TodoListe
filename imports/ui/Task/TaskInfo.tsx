@@ -21,9 +21,9 @@ export const TaskInfo: React.FC<TaskProps> = ({ task }) => {
       case Priority.High:
         return <ExpandLessIcon />;
       case Priority.Medium:
-        return <ExpandMoreIcon />;
-      case Priority.Low:
         return <RemoveIcon />;
+      case Priority.Low:
+        return <ExpandMoreIcon />;
     }
   };
 
