@@ -1,6 +1,6 @@
 import { Chip, Typography } from "@material-ui/core";
 import React from "react";
-import { TaskProps } from ".";
+import { TaskProps } from "./Task";
 import { useStyles } from "./Task.style";
 
 export const TaskInfo: React.FC<TaskProps> = ({ task }) => {

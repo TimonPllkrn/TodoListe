@@ -1,21 +1,18 @@
-import { ListItem, ListItemText } from "@material-ui/core";
+import { List } from "@material-ui/core";
 import React from "react";
-import { Task as TaskType } from "../../types/Task";
-import { TaskInfo } from "./TaskInfo";
+import { Task } from "./Task";
+import { Task as TaskType } from "/imports/types/Task";
 
 export interface TaskProps {
-  task: TaskType;
+  tasks: TaskType[];
 }
 
-export const Task: React.FC<TaskProps> = ({ task }) => {
+export const TaskList: React.FC<TaskProps> = ({ tasks }) => {
   return (
-    <ListItem button>
-      <ListItemText
-        primary={task.title}
-        primaryTypographyProps={{ variant: "h5" }}
-        secondary={<TaskInfo task={task} />}
-        secondaryTypographyProps={{ component: "div" }}
-      />
-    </ListItem>
+    <List>
+      {tasks.map((task) => (
+        <Task task={task} key={task.id} />
+      ))}
+    </List>
   );
 };
