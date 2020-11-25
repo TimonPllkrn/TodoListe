@@ -32,7 +32,7 @@ export const TaskInfo: React.FC<TaskProps> = ({ task }) => {
       <Chip className={classes.chip} label={task.category.name} />
       <IconButton size="small">{getPriorityIcon(task.priority)}</IconButton>
       <div className={classes.secondary}>
-        <Typography className={classes.chip}>
+        <Typography className={classes.chip} component="div">
           <IconWithText
             icon={<AccessTimeIcon />}
             iconTooltip="last updated"
