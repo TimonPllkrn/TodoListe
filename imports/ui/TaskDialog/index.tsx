@@ -3,7 +3,6 @@ import React from 'react'
 import { TasksCollection } from '/imports/api/TasksCollection';
 import { Category } from '/imports/types/Category';
 import { Priority } from '/imports/types/Priority';
-import { Task } from '/imports/types/Task';
 
 export interface NewButtonProps {
   categories: Category[];
