@@ -79,7 +79,7 @@ export const TaskDialog: React.FC<NewButtonProps> = ({ categories }) => {
             }}
           >
             <option value={undefined}>None</option>
-            {categories.map(c => (<option value={c.id} key={c.id}>{c.name}</option>))}
+            {categories.map(c => (<option value={c._id} key={c._id}>{c.name}</option>))}
           </Select>
         </Box>
 
