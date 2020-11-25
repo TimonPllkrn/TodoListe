@@ -11,7 +11,7 @@ export interface NewButtonProps {
 export const TaskDialog: React.FC<NewButtonProps> = ({ categories }) => {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
-  const [priority, setPriority] = React.useState(Priority.Medium);
+  const [priority, setPriority] = React.useState<Priority>(Priority.Medium);
   const [category, setCategory] = React.useState<Category| undefined>(undefined);
 
   const handlePriorityChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
@@ -26,12 +26,13 @@ export const TaskDialog: React.FC<NewButtonProps> = ({ categories }) => {
     if (title.trim() === "") {
       return;
     }
+
     TasksCollection.insert({
       title: title,
       category: category,
       done: false,
       ownerId: "-1",
-      priority: priority,
+      priority: Number(priority),
       date: new Date(),
       lastUpdated: new Date()
       
