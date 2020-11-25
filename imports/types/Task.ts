@@ -2,11 +2,11 @@ import { Category } from "./Category";
 import { Priority } from "./Priority";
 
 export interface Task {
-  id: number;
+  _id: string;
   title: string;
-  category: Category;
+  category?: Category;
   done: boolean;
-  owner: number;
+  ownerId: string;
   priority: Priority;
   date: Date;
   lastUpdated: Date;
