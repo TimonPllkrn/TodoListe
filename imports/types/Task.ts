@@ -2,7 +2,7 @@ import { Category } from "./Category";
 import { Priority } from "./Priority";
 
 export interface Task {
-  id: number;
+  _id: string;
   title: string;
   category: Category;
   done: boolean;
