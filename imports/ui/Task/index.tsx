@@ -11,7 +11,7 @@ export const TaskList: React.FC<TaskProps> = ({ tasks }) => {
   return (
     <List>
       {tasks.map((task) => (
-        <Task task={task} key={task.id} />
+        <Task task={task} key={task._id} />
       ))}
     </List>
   );
