@@ -1,7 +1,9 @@
 import { Box, Button, Dialog, DialogActions, DialogTitle, Divider, InputLabel, Select, TextField } from '@material-ui/core'
 import React from 'react'
+import { TasksCollection } from '/imports/api/TasksCollection';
 import { Category } from '/imports/types/Category';
 import { Priority } from '/imports/types/Priority';
+import { Task } from '/imports/types/Task';
 
 export interface NewButtonProps {
   categories: Category[];
@@ -11,7 +13,7 @@ export const TaskDialog: React.FC<NewButtonProps> = ({ categories }) => {
   const [open, setOpen] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [priority, setPriority] = React.useState(Priority.Medium);
-  const [category, setCategory] = React.useState<Category| null>(null);
+  const [category, setCategory] = React.useState<Category| undefined>(undefined);
 
   const handlePriorityChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
     setPriority(event.target.value as Priority);
@@ -25,6 +27,16 @@ export const TaskDialog: React.FC<NewButtonProps> = ({ categories }) => {
     if (title.trim() === "") {
       return;
     }
+    TasksCollection.insert({
+      title: title,
+      category: category,
+      done: false,
+      ownerId: "-1",
+      priority: priority,
+      date: new Date(),
+      lastUpdated: new Date()
+      
+    });
     setOpen(false);
   }
 

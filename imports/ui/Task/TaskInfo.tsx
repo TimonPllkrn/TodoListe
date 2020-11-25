@@ -29,7 +29,7 @@ export const TaskInfo: React.FC<TaskProps> = ({ task }) => {
 
   return (
     <div className={classes.root}>
-      <Chip className={classes.chip} label={task.category.name} />
+      <Chip className={classes.chip} label={task.category?.name || "None"} />
       <IconButton size="small">{getPriorityIcon(task.priority)}</IconButton>
       <div className={classes.secondary}>
         <Typography className={classes.chip} component="div">
@@ -42,7 +42,7 @@ export const TaskInfo: React.FC<TaskProps> = ({ task }) => {
             textTooltip={task.lastUpdated.toLocaleString()}
           />
         </Typography>
-        <Tooltip title={task.owner}>
+        <Tooltip title={task.ownerId}>
           <Avatar className={classes.small} />
         </Tooltip>
       </div>
