@@ -8,6 +8,6 @@ export interface Task {
   done: boolean;
   ownerId: string;
   priority: Priority;
-  date: Date;
-  lastUpdated: Date;
+  createDate: Date;
+  doneDate: Date | undefined;
 }
