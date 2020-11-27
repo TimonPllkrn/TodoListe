@@ -9,7 +9,9 @@ import { useStyles } from "./App.style";
 
 export const App = () => {
   const classes = useStyles();
-  const tasks = useTracker(() => TasksCollection.find({}).fetch());
+  const tasks = useTracker(() => TasksCollection
+    .find({}, {sort: { date: 1 }})
+    .fetch());
 
   // TODO: Replace Task dialog component
   return (

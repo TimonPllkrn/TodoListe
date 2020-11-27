@@ -16,15 +16,14 @@ export interface TaskProps {
   task: TaskType;
 }
 
-const setDone = (_id: string, done: bool) => {
+const setDone = (_id: string, done: boolean) => {
   TasksCollection.update(_id, {
     $set: {
-      done: done
+      done: done,
+      date: new Date()
     }
   })
 };
-
-
 
 export const Task: React.FC<TaskProps> = ({ task }) => {
   const classes = useStyles();
