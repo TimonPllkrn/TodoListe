@@ -10,17 +10,28 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { TasksCollection } from "/imports/api/TasksCollection";
 
 export interface TaskProps {
   task: TaskType;
 }
+
+const setDone = (_id: string, done: bool) => {
+  TasksCollection.update(_id, {
+    $set: {
+      done: done
+    }
+  })
+};
+
+
 
 export const Task: React.FC<TaskProps> = ({ task }) => {
   const classes = useStyles();
   const color = task.done ? "#BCFFCF" : "#FFFCAC"
   const buttons = task.done ? (
     <div>
-      <IconButton >
+      <IconButton onClick={() => setDone(task._id, false)}>
         <CancelIcon color="error" />
       </IconButton>
       <IconButton >
@@ -29,7 +40,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
     </div>
   ) : (
     <div>
-      <IconButton >
+      <IconButton onClick={() => setDone(task._id, true)}>
         <CheckCircleIcon style={{fill: "green"}} />
       </IconButton>
       <IconButton color="secondary" >
@@ -56,7 +67,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
         <Divider />
         <div className={classes.section}>
           <Chip className={classes.chip} label={task.category?.name || "None"} />
-          <IconButton size="small">{getPriorityIcon(task.priority)}</IconButton>
+          <IconButton size="small" disabled>{getPriorityIcon(task.priority)}</IconButton>
         </div>
         <Divider />
         <div className={classes.section}>

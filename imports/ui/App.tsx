@@ -5,7 +5,6 @@ import { TasksCollection } from "../api/TasksCollection";
 import { TaskDialog } from "./TaskDialog";
 import { Header } from "./Header";
 import { Divider, Typography } from "@material-ui/core";
-import { Priority } from "../types/Priority";
 import { useStyles } from "./App.style";
 
 export const App = () => {
