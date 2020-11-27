@@ -20,7 +20,7 @@ const setDone = (_id: string, done: boolean) => {
   TasksCollection.update(_id, {
     $set: {
       done: done,
-      date: new Date()
+      doneDate: done ? new Date() : undefined
     }
   })
 };

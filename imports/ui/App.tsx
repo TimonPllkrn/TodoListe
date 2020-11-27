@@ -9,11 +9,14 @@ import { useStyles } from "./App.style";
 
 export const App = () => {
   const classes = useStyles();
+  const doneTasks = useTracker(() => TasksCollection
+    .find({ done: { $ne: false } }, { sort: { doneDate: 1 } })
+    .fetch());
   const tasks = useTracker(() => TasksCollection
-    .find({}, {sort: { date: 1 }})
+    .find({ done: { $ne: true } }, { sort: { createDate: 1 } })
     .fetch());
 
-  // TODO: Replace Task dialog component
+  // TODO: Replace TaskDialog component
   return (
     <div>
       <Header />
@@ -22,12 +25,12 @@ export const App = () => {
       </div>
       <div className={classes.section}>
         <Typography variant="h4">ToDo:</Typography>
-        <TaskList tasks={tasks.filter(t => !t.done)} />
+        <TaskList tasks={tasks} />
       </div>
       <Divider />
       <div className={classes.section}>
         <Typography variant="h4">Done:</Typography>
-        <TaskList tasks={tasks.filter(t => t.done)} />
+        <TaskList tasks={doneTasks} />
       </div>
     </div>
   );
