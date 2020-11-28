@@ -24,12 +24,12 @@ export const App = () => {
         <TaskDialog categories={[]}></TaskDialog>
       </div>
       <div className={classes.section}>
-        <Typography variant="h4">ToDo:</Typography>
+        <Typography variant="h4">ToDo: {tasks.length}</Typography>
         <TaskList tasks={tasks} />
       </div>
       <Divider />
       <div className={classes.section}>
-        <Typography variant="h4">Done:</Typography>
+        <Typography variant="h4">Done: {doneTasks.length}</Typography>
         <TaskList tasks={doneTasks} />
       </div>
     </div>
