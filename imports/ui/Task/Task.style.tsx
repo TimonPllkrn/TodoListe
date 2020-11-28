@@ -17,11 +17,16 @@ export const useStyles = makeStyles((theme: Theme) =>
     paper: {
       margin: theme.spacing(2),
       width: theme.spacing(40),
-      // backgroundColor: "#FFFCAC"
-     // height: theme.spacing(20),
     },
     section: {
       padding: theme.spacing(1)
+    },
+    titleSection: {
+      padding: theme.spacing(1),
+      paddingLeft: theme.spacing(2)
+    },
+    userName: {
+      marginTop: theme.spacing(1)
     }
   })
 );

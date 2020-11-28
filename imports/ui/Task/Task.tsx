@@ -10,12 +10,11 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { TasksCollection } from "/imports/api/TasksCollection";
-import { Categories, getCategory } from "../App";
+import { Categories, getCategory, getUser, Users } from "../App";
 
 export interface TaskProps {
   task: TaskType;
 }
-
 
 const updateDone = (_id: string, done: boolean) => {
   TasksCollection.update(_id, {
@@ -58,35 +57,53 @@ export const updateTitle = (_id: string, title: string) => {
   });
 }
 
+export const updateUser = (_id: string, _uId: string) => {
+  TasksCollection.update(_id, {
+    $set: {
+      ownerId: _uId
+    }
+  });
+}
+
 export const Task: React.FC<TaskProps> = ({ task }) => {
   const classes = useStyles();
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorCategories, setAnchorCategories] = React.useState<HTMLButtonElement | null>(null);
+  const [anchorUsers, setAnchorUsers] = React.useState<HTMLButtonElement | null>(null);
   const [title, setTitle] = React.useState(task.title);
   const [editTitle, setEditTitle] = React.useState(false);
 
-  const open = Boolean(anchorEl);
+  const categoriesOpen = Boolean(anchorCategories);
+  const usersOpen = Boolean(anchorUsers);
 
   const todoColor = "#FFFCAC";
   const doneColor = "#BCFFCF";
   const cardColor = task.done ? doneColor :  todoColor;
 
   const handleChipClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+    setAnchorCategories(event.currentTarget);
   };
 
-  const handleSelectCategory = (_cId: string | undefined) => {
-    setAnchorEl(null);
-    updateCategory(task._id, _cId);
+  const handleAvatarClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorUsers(event.currentTarget);
+  };
+
+  const handleSelectCategory = (_id: string | undefined) => {
+    setAnchorCategories(null);
+    updateCategory(task._id, _id);
   }
 
-  const handleKeyDown = (e) => {
+  const handleSelectUser = (_id: string, _uId: string) => {
+    setAnchorUsers(null);
+    updateUser(task._id, _uId)
+  }
+
+  const handleKeyDown = (e: any) => {
     if(e.keyCode == 13 && title.trim() !== "") {
       updateTitle(task._id, title.trim());
       setEditTitle(false);
     }
   }
-
 
   const buttons = task.done ? (
     <div>
@@ -105,7 +122,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
   return (
     <Paper className={classes.paper} elevation={5} style={{backgroundColor: cardColor}}>
       <div>
-        <div className={classes.section}>
+        <div className={classes.titleSection}>
           <Grid container wrap="nowrap" >
           <Grid item xs>
             {editTitle ? (
@@ -141,9 +158,9 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
              style={{backgroundColor: task.category?.color}} />
           </Button>
           <Popover
-            open={open}
-            onClose={() => setAnchorEl(null)}
-            anchorEl={anchorEl}
+            open={categoriesOpen}
+            onClose={() => setAnchorCategories(null)}
+            anchorEl={anchorCategories}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'center',
@@ -164,19 +181,49 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
             >
               <Chip className={classes.chip} label={c.name} style={{backgroundColor: c.color}}/> 
             </Button>))}
-        </Popover>    
+          </Popover>    
           <IconButton size="small" onClick={() => updatePriority(task._id, task.priority)}>{
             getPriorityIcon(task.priority)}
-            </IconButton>
+          </IconButton>
         </div>
         <Divider />
         <div className={classes.section}>
           <Grid container>
             <Grid item >
-              <Avatar className={classes.avatar} />
+              <Button onClick={handleAvatarClick} >
+                <Avatar className={classes.avatar} />
+              </Button>
+              <Popover
+                open={usersOpen}
+                onClose={() => setAnchorUsers(null)}
+                anchorEl={anchorUsers}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+              >
+                {Users.map(u => (
+                  <div key={u._id}>
+                    <Button 
+                      style={{textTransform: 'none'}} 
+                      onClick={() => handleSelectUser(task._id, u._id)}>
+                      <Avatar className={classes.avatar}/>
+                      <Typography>
+                        {u.name}
+                      </Typography>
+                    </Button>
+                  </div>
+                ))}
+              </Popover>  
             </Grid>
-            <Grid >
-              <Typography>{task.ownerId}</Typography>
+            <Grid item>
+              <Typography className={classes.userName}>
+                {getUser(task.ownerId)?.name || ""}
+              </Typography>
             </Grid>
           </Grid>
         </div>     

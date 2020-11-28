@@ -7,6 +7,7 @@ import { Header } from "./Header";
 import { Divider, Typography } from "@material-ui/core";
 import { useStyles } from "./App.style";
 import { Category } from "../types/Category";
+import { User } from "../types/User";
 
 // hard coded categories
 export const Categories: Category[] = [
@@ -27,9 +28,34 @@ export const Categories: Category[] = [
   }
 ]
 
-export const getCategory = (_cId: string): Category | undefined=> {
-  return Categories.find(c => c._id === _cId);
+export const getCategory = (_id: string): Category | undefined=> {
+  return Categories.find(c => c._id === _id);
 }
+
+// TODO: create UsersCollection
+export const Users: User[] = [
+  {
+    _id: "1",
+    name: "David"
+  },
+  {
+    _id: "2", 
+    name: "Jannik"
+  },
+  {
+    _id: "3",
+    name: "Max"
+  },
+  {
+    _id: "4",
+    name: "Timon"
+  }
+]
+
+export const getUser = (_id: string) => {
+  return Users.find(u => u._id === _id);
+}
+
 
 export const App = () => {
   const classes = useStyles();
