@@ -1,4 +1,4 @@
-import {Avatar, Button, Chip, Divider, Grid, IconButton, Paper, Popover, Select, TextField, Typography} from "@material-ui/core";
+import {Avatar, Button, Chip, Divider, Grid, IconButton, Paper, Popover, TextField, Typography} from "@material-ui/core";
 import React from "react";
 import { Task as TaskType } from "../../types/Task";
 import { useStyles } from "./Task.style";
@@ -9,7 +9,6 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { TasksCollection } from "/imports/api/TasksCollection";
 import { Categories, getCategory } from "../App";
 
@@ -18,16 +17,24 @@ export interface TaskProps {
 }
 
 
-const setDone = (_id: string, done: boolean) => {
+const updateDone = (_id: string, done: boolean) => {
   TasksCollection.update(_id, {
     $set: {
       done: done,
       doneDate: done ? new Date() : undefined
     }
-  })
+  });
 };
 
-const setCategory = (_id: string, _cId: string | undefined) => {
+export const updatePriority = (_id: string, priority: Priority) => {
+  TasksCollection.update(_id, {
+    $set: {
+      priority: ((Number(priority) + 1) % 3) as Priority
+    }
+  });
+}
+
+const updateCategory = (_id: string, _cId: string | undefined) => {
   if (_cId) {
     TasksCollection.update(_id, {
       $set: {
@@ -43,13 +50,26 @@ const setCategory = (_id: string, _cId: string | undefined) => {
   }
 }
 
+export const updateTitle = (_id: string, title: string) => {
+  TasksCollection.update(_id, {
+    $set: {
+      title: title
+    }
+  });
+}
+
 export const Task: React.FC<TaskProps> = ({ task }) => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [title, setTitle] = React.useState(task.title);
+  const [editTitle, setEditTitle] = React.useState(false);
 
   const open = Boolean(anchorEl);
-  const cardColor = task.done ? "#BCFFCF" : "#FFFCAC"
+
+  const todoColor = "#FFFCAC";
+  const doneColor = "#BCFFCF";
+  const cardColor = task.done ? doneColor :  todoColor;
 
   const handleChipClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -57,26 +77,27 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
 
   const handleSelectCategory = (_cId: string | undefined) => {
     setAnchorEl(null);
-    setCategory(task._id, _cId);
+    updateCategory(task._id, _cId);
+  }
+
+  const handleKeyDown = (e) => {
+    if(e.keyCode == 13 && title.trim() !== "") {
+      updateTitle(task._id, title.trim());
+      setEditTitle(false);
+    }
   }
 
 
   const buttons = task.done ? (
     <div>
-      <IconButton onClick={() => setDone(task._id, false)}>
-        <CancelIcon color="error" />
-      </IconButton>
-      <IconButton >
-        <DeleteIcon />
+      <IconButton onClick={() => updateDone(task._id, false)}>
+        <CancelIcon color="error"/>
       </IconButton>
     </div>
   ) : (
     <div>
-      <IconButton onClick={() => setDone(task._id, true)}>
-        <CheckCircleIcon style={{fill: "green"}} />
-      </IconButton>
-      <IconButton color="secondary" >
-        <EditIcon />
+      <IconButton onClick={() => updateDone(task._id, true)}>
+        <CheckCircleIcon style={{fill: "#71C51C"}} />
       </IconButton>
     </div>
   )
@@ -87,7 +108,22 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
         <div className={classes.section}>
           <Grid container wrap="nowrap" >
           <Grid item xs>
-              <Typography variant="subtitle1">{task.title}</Typography>
+            {editTitle ? (
+              <TextField 
+                value={title}
+                onKeyDown={handleKeyDown}
+                onChange={t => {setTitle(t.target.value)}}
+                multiline
+                fullWidth
+                ></TextField>
+            ) : (
+              <Typography variant="subtitle1">{task.title} 
+                <IconButton color="primary" onClick={() => setEditTitle(true)}>
+                  <EditIcon />
+                </IconButton>
+              </Typography>
+            ) }
+              
             </Grid>
             <Grid item>
               <div>
@@ -129,7 +165,9 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
               <Chip className={classes.chip} label={c.name} style={{backgroundColor: c.color}}/> 
             </Button>))}
         </Popover>    
-          <IconButton size="small" disabled>{getPriorityIcon(task.priority)}</IconButton>
+          <IconButton size="small" onClick={() => updatePriority(task._id, task.priority)}>{
+            getPriorityIcon(task.priority)}
+            </IconButton>
         </div>
         <Divider />
         <div className={classes.section}>
