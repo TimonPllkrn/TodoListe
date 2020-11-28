@@ -4,16 +4,24 @@ export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     secondary: {
-      display: "flex",
-      flexFlow: "row",
-      margin: "5px",
+      
     },
-    small: {
+    avatar: {
       width: theme.spacing(3),
       height: theme.spacing(3),
+      marginRight: theme.spacing(2)
     },
     chip: {
       marginRight: "5px",
     },
+    paper: {
+      margin: theme.spacing(2),
+      width: theme.spacing(40),
+      // backgroundColor: "#FFFCAC"
+     // height: theme.spacing(20),
+    },
+    section: {
+      padding: theme.spacing(1)
+    }
   })
 );
