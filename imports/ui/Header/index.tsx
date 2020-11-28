@@ -5,7 +5,7 @@ export const Header: React.FC = () => {
   return (
     <AppBar position="static" color="primary">
       <Toolbar>
-        <Typography variant="h3" >
+        <Typography variant="h4" >
           ToDo-App
         </Typography>
       </Toolbar>
