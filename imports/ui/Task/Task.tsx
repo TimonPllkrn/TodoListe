@@ -1,4 +1,4 @@
-import {Avatar, Chip, Divider, Grid, IconButton, Paper, Typography} from "@material-ui/core";
+import {Avatar, Button, Chip, Divider, Grid, IconButton, Paper, Popover, Select, TextField, Typography} from "@material-ui/core";
 import React from "react";
 import { Task as TaskType } from "../../types/Task";
 import { useStyles } from "./Task.style";
@@ -11,10 +11,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { TasksCollection } from "/imports/api/TasksCollection";
+import { Categories, getCategory } from "../App";
 
 export interface TaskProps {
   task: TaskType;
 }
+
 
 const setDone = (_id: string, done: boolean) => {
   TasksCollection.update(_id, {
@@ -25,9 +27,40 @@ const setDone = (_id: string, done: boolean) => {
   })
 };
 
+const setCategory = (_id: string, _cId: string | undefined) => {
+  if (_cId) {
+    TasksCollection.update(_id, {
+      $set: {
+        category: getCategory(_cId)
+      }
+    });
+  } else {
+    TasksCollection.update(_id, {
+      $unset: {
+        category: true
+      }
+    });
+  }
+}
+
 export const Task: React.FC<TaskProps> = ({ task }) => {
   const classes = useStyles();
-  const color = task.done ? "#BCFFCF" : "#FFFCAC"
+
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+
+  const open = Boolean(anchorEl);
+  const cardColor = task.done ? "#BCFFCF" : "#FFFCAC"
+
+  const handleChipClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleSelectCategory = (_cId: string | undefined) => {
+    setAnchorEl(null);
+    setCategory(task._id, _cId);
+  }
+
+
   const buttons = task.done ? (
     <div>
       <IconButton onClick={() => setDone(task._id, false)}>
@@ -49,7 +82,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
   )
 
   return (
-    <Paper className={classes.paper} elevation={5} style={{backgroundColor: color}}>
+    <Paper className={classes.paper} elevation={5} style={{backgroundColor: cardColor}}>
       <div>
         <div className={classes.section}>
           <Grid container wrap="nowrap" >
@@ -65,7 +98,37 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
         </div>
         <Divider />
         <div className={classes.section}>
-          <Chip className={classes.chip} label={task.category?.name || "None"} />
+          <Button onClick={handleChipClick} >
+           <Chip 
+             className={classes.chip} 
+             label={task.category?.name || "None"}  
+             style={{backgroundColor: task.category?.color}} />
+          </Button>
+          <Popover
+            open={open}
+            onClose={() => setAnchorEl(null)}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+          <Button className={classes.section} onClick={() => handleSelectCategory(undefined)}>
+            <Chip className={classes.chip} label={"None"} />
+          </Button>
+          {Categories.map(c => (
+            <Button 
+              className={classes.section} 
+              key={c._id} 
+              onClick={() => handleSelectCategory(c._id)}
+            >
+              <Chip className={classes.chip} label={c.name} style={{backgroundColor: c.color}}/> 
+            </Button>))}
+        </Popover>    
           <IconButton size="small" disabled>{getPriorityIcon(task.priority)}</IconButton>
         </div>
         <Divider />
