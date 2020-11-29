@@ -33,8 +33,8 @@ export const TaskDialog: React.FC<NewButtonProps> = ({ categories }) => {
       done: false,
       ownerId: "-1",
       priority: Number(priority),
-      date: new Date(),
-      lastUpdated: new Date()
+      createDate: new Date(),
+      doneDate: undefined
       
     });
     setOpen(false);

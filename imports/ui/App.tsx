@@ -6,6 +6,56 @@ import { TaskDialog } from "./TaskDialog";
 import { Header } from "./Header";
 import { Divider, Typography } from "@material-ui/core";
 import { useStyles } from "./App.style";
+import { Category } from "../types/Category";
+import { User } from "../types/User";
+
+// hard coded categories
+export const Categories: Category[] = [
+  {
+    _id: "1",
+    name: "Uni",
+    color: "#FF968F"
+  },
+  {
+    _id: "2",
+    name: "Arbeit",
+    color: "#99C0FF"
+  },
+  {
+    _id: "3",
+    name: "Haushalt",
+    color: "#7BDE76"
+  }
+]
+
+export const getCategory = (_id: string): Category | undefined=> {
+  return Categories.find(c => c._id === _id);
+}
+
+// TODO: create UsersCollection
+export const Users: User[] = [
+  {
+    _id: "1",
+    name: "David"
+  },
+  {
+    _id: "2", 
+    name: "Jannik"
+  },
+  {
+    _id: "3",
+    name: "Max"
+  },
+  {
+    _id: "4",
+    name: "Timon"
+  }
+]
+
+export const getUser = (_id: string) => {
+  return Users.find(u => u._id === _id);
+}
+
 
 export const App = () => {
   const classes = useStyles();
