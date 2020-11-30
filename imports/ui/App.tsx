@@ -39,7 +39,7 @@ export const Users: User[] = [
     name: "David"
   },
   {
-    _id: "2", 
+    _id: "2",
     name: "Jannik"
   },
   {
@@ -70,7 +70,8 @@ export const App = () => {
   return (
     <div>
       <Header />
-      <div style={{marginTop: 20}}>
+      <div className={classes.section}>
+        <Typography variant="h5">Create new Task</Typography>
         <TaskDialog categories={[]}></TaskDialog>
       </div>
       <div className={classes.section}>
