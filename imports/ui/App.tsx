@@ -71,7 +71,7 @@ export const App = () => {
       <Header/>
       <div className={classes.section}>
         <Typography variant="h5">Create new Task</Typography>
-        <TaskDialog categories={[]}></TaskDialog>
+        <TaskDialog></TaskDialog>
       </div>
       <div className={classes.section}>
         <Typography variant="h5">ToDo ({tasks.length})</Typography>

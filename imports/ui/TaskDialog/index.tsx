@@ -1,14 +1,12 @@
 import {Box, Button, InputLabel, Select, TextField} from '@material-ui/core'
 import React from 'react'
+import { Categories, getCategory } from '../App';
 import {TasksCollection} from '/imports/api/TasksCollection';
 import {Category} from '/imports/types/Category';
 import {Priority} from '/imports/types/Priority';
 
-export interface NewButtonProps {
-  categories: Category[];
-}
 
-export const TaskDialog: React.FC<NewButtonProps> = ({categories}) => {
+export const TaskDialog: React.FC = () => {
   const [title, setTitle] = React.useState("");
   const [priority, setPriority] = React.useState<Priority>(Priority.Medium);
   const [category, setCategory] = React.useState<Category | undefined>(undefined);
@@ -18,7 +16,7 @@ export const TaskDialog: React.FC<NewButtonProps> = ({categories}) => {
   };
 
   const handleCategoryChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    setCategory(categories[event.target.value as number]);
+    setCategory(getCategory(event.target.value as string));
   };
 
   const handleSave = () => {
@@ -73,7 +71,7 @@ export const TaskDialog: React.FC<NewButtonProps> = ({categories}) => {
       <Box my={3} mx={2}>
         <InputLabel htmlFor="category">Category</InputLabel>
         <Select
-          value={""}
+          value={category?._id || ""}
           onChange={handleCategoryChange}
           native
           inputProps={{
@@ -81,7 +79,7 @@ export const TaskDialog: React.FC<NewButtonProps> = ({categories}) => {
           }}
         >
           <option value={undefined}>None</option>
-          {categories.map(c => (<option value={c._id} key={c._id}>{c.name}</option>))}
+          {Categories.map(c => (<option value={c._id} key={c._id}>{c.name}</option>))}
         </Select>
       </Box>
       <Button onClick={handleSave} color="primary">
