@@ -267,7 +267,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
             </Grid>
             <Grid item>
               <Typography className={classes.userName}>
-                {getUser(task.ownerId)?.name || ""}
+                {getUser(task.ownerId)?.name || "no User"}
               </Typography>
             </Grid>
           </Grid>

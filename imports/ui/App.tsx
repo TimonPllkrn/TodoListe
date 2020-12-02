@@ -14,48 +14,47 @@ export const Categories: Category[] = [
   {
     _id: "1",
     name: "Uni",
-    color: "#FF968F"
+    color: "#FF968F",
   },
   {
     _id: "2",
     name: "Arbeit",
-    color: "#99C0FF"
+    color: "#99C0FF",
   },
   {
     _id: "3",
     name: "Haushalt",
-    color: "#7BDE76"
-  }
-]
+    color: "#7BDE76",
+  },
+];
 
-export const getCategory = (_id: string): Category | undefined=> {
-  return Categories.find(c => c._id === _id);
-}
+export const getCategory = (_id: string): Category | undefined => {
+  return Categories.find((c) => c._id === _id);
+};
 
 // TODO: create UsersCollection
 export const Users: User[] = [
   {
     _id: "1",
-    name: "David"
+    name: "David",
   },
   {
-    _id: "2", 
-    name: "Jannik"
+    _id: "2",
+    name: "Jannik",
   },
   {
     _id: "3",
-    name: "Max"
+    name: "Max",
   },
   {
     _id: "4",
-    name: "Timon"
-  }
-]
+    name: "Timon",
+  },
+];
 
 export const getUser = (_id: string) => {
-  return Users.find(u => u._id === _id);
-}
-
+  return Users.find((u) => u._id === _id);
+};
 
 export const App = () => {
   const classes = useStyles();
@@ -83,12 +82,14 @@ export const App = () => {
     setDoneFilter(event.currentTarget.value);
   };
 
-  // TODO: Replace TaskDialog component
   return (
     <div>
       <Header />
-      <div style={{ marginTop: 20 }}>
-        <TaskDialog categories={[]}></TaskDialog>
+      <div className={classes.section}>
+        <div className={classes.sectionHeader}>
+          <Typography variant="h5">Create new Task</Typography>
+        </div>
+        <TaskDialog></TaskDialog>
       </div>
       <div className={classes.section}>
         <div className={classes.sectionHeader}>

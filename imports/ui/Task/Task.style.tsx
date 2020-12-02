@@ -16,6 +16,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(2),
       width: theme.spacing(40),
     },
+    paper2: {
+      margin: theme.spacing(2),
+      width: theme.spacing(60),
+    },
     section: {
       padding: theme.spacing(1),
     },
@@ -29,6 +33,15 @@ export const useStyles = makeStyles((theme: Theme) =>
     grid: {
       display: "grid",
       justifyContent: "end",
+    },
+    button: {
+      margin: theme.spacing(2),
+    },
+    flex: {
+      display: "flex",
+    },
+    flexGrow: {
+      flexGrow: 1,
     },
   })
 );
