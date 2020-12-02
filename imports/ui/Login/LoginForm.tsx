@@ -6,6 +6,7 @@ import { PasswortInput } from "./PasswortInput";
 
 export interface LoginFormProps {
   title: string;
+  btnTop?: JSX.Element;
   submitBtn: {
     text: string;
     onClick: (username: string, password: string) => void;
@@ -19,6 +20,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   submitBtn,
   passwortInputProps,
   userInputProps,
+  btnTop,
 }) => {
   const classes = useStyles();
   const username = createRef<HTMLInputElement>();
@@ -46,7 +48,10 @@ export const LoginForm: React.FC<LoginFormProps> = ({
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4">{title}</Typography>
+      <Typography variant="h4" component="div">
+        {btnTop ?? null}
+        {title}
+      </Typography>
       <UsernameInput
         {...userInputProps}
         onKeyDown={handleUserInputPressEnter}
