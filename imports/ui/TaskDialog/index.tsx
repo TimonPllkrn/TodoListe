@@ -52,7 +52,7 @@ export const TaskDialog: React.FC = () => {
       title: title,
       category: category,
       done: false,
-      ownerId: "-1",
+      ownerId: user?._id || "-1",
       priority: Number(priority),
       createDate: new Date(),
       doneDate: undefined,
