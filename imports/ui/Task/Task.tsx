@@ -21,7 +21,7 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import EditIcon from "@material-ui/icons/Edit";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { TasksCollection } from "/imports/api/TasksCollection";
-import { Categories, getCategory, getUser, Users } from "../App";
+import { Categories, getCategory, getUser, Users } from "../Dashboard";
 
 export interface TaskProps {
   task: TaskType;
