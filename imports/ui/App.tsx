@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { TaskList } from "./Task";
 import { useTracker } from "meteor/react-meteor-data";
 import { TasksCollection } from "../api/TasksCollection";
 import { TaskDialog } from "./TaskDialog";
 import { Header } from "./Header";
-import { Divider, Typography } from "@material-ui/core";
+import { Divider, TextField, Typography } from "@material-ui/core";
 import { useStyles } from "./App.style";
 import { Category } from "../types/Category";
 import { User } from "../types/User";
@@ -59,28 +59,69 @@ export const getUser = (_id: string) => {
 
 export const App = () => {
   const classes = useStyles();
-  const doneTasks = useTracker(() => TasksCollection
-    .find({ done: { $ne: false } }, { sort: { doneDate: 1 } })
-    .fetch());
-  const tasks = useTracker(() => TasksCollection
-    .find({ done: { $ne: true } }, { sort: { createDate: 1 } })
-    .fetch());
+
+  const [todoFilter, setTodoFilter] = useState("");
+  const [doneFilter, setDoneFilter] = useState("");
+
+  const doneTasks = useTracker(() =>
+    TasksCollection.find(
+      { done: { $ne: false } },
+      { sort: { doneDate: 1 } }
+    ).fetch()
+  );
+  const tasks = useTracker(() =>
+    TasksCollection.find(
+      { done: { $ne: true } },
+      { sort: { createDate: 1 } }
+    ).fetch()
+  );
+
+  const handleTodoInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTodoFilter(event.currentTarget.value);
+  };
+  const handleDoneInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDoneFilter(event.currentTarget.value);
+  };
 
   // TODO: Replace TaskDialog component
   return (
     <div>
       <Header />
-      <div style={{marginTop: 20}}>
+      <div style={{ marginTop: 20 }}>
         <TaskDialog categories={[]}></TaskDialog>
       </div>
       <div className={classes.section}>
-        <Typography variant="h5">ToDo ({tasks.length})</Typography>
-        <TaskList tasks={tasks} />
+        <div className={classes.sectionHeader}>
+          <Typography variant="h5">ToDo ({tasks.length})</Typography>
+          <div className={classes.flexGrow}></div>
+          <TextField
+            label="Search..."
+            variant="outlined"
+            onChange={handleTodoInput}
+          />
+        </div>
+        <TaskList
+          tasks={tasks.filter((task) =>
+            task.title.toLowerCase().includes(todoFilter.toLowerCase())
+          )}
+        />
       </div>
       <Divider />
       <div className={classes.section}>
-        <Typography variant="h5">Done ({doneTasks.length})</Typography>
-        <TaskList tasks={doneTasks} />
+        <div className={classes.sectionHeader}>
+          <Typography variant="h5">Done ({doneTasks.length})</Typography>
+          <div className={classes.flexGrow}></div>
+          <TextField
+            label="Search..."
+            variant="outlined"
+            onChange={handleDoneInput}
+          />
+        </div>
+        <TaskList
+          tasks={doneTasks.filter((task) =>
+            task.title.toLowerCase().includes(doneFilter.toLowerCase())
+          )}
+        />
       </div>
     </div>
   );
