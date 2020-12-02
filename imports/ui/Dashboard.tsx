@@ -56,7 +56,7 @@ export const getUser = (_id: string) => {
   return Users.find((u) => u._id === _id);
 };
 
-export const App = () => {
+export const Dashboard = () => {
   const classes = useStyles();
 
   const [todoFilter, setTodoFilter] = useState("");

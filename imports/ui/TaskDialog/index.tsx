@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React from "react";
-import { Categories, getCategory, Users } from "../App";
+import { Categories, getCategory, Users } from "../Dashboard";
 import { TasksCollection } from "/imports/api/TasksCollection";
 import { Category } from "/imports/types/Category";
 import { Priority } from "/imports/types/Priority";
