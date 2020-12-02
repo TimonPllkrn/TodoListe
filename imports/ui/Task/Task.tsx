@@ -21,7 +21,9 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import EditIcon from "@material-ui/icons/Edit";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { TasksCollection } from "/imports/api/TasksCollection";
-import { Categories, getCategory, getUser, Users } from "../Dashboard";
+import { Categories, getCategory } from "../Dashboard";
+import { useTracker } from "meteor/react-meteor-data";
+import { Meteor } from "meteor/meteor";
 
 export interface TaskProps {
   task: TaskType;
@@ -96,6 +98,15 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
   const todoColor = "#FFFCAC";
   const doneColor = "#BCFFCF";
   const cardColor = task.done ? doneColor : todoColor;
+
+  const Users = useTracker(() => {
+    return Meteor.users.find().fetch();
+  });
+
+  const getUser = (_id: string) =>
+    useTracker(() => {
+      return Meteor.users.findOne({ _id: _id });
+    });
 
   const handleChipClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorCategories(event.currentTarget);
@@ -252,14 +263,14 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
                   horizontal: "center",
                 }}
               >
-                {Users.map((u) => (
+                {Users?.map((u) => (
                   <div key={u._id}>
                     <Button
                       style={{ textTransform: "none" }}
                       onClick={() => handleSelectUser(task._id, u._id)}
                     >
                       <Avatar className={classes.avatar} />
-                      <Typography>{u.name}</Typography>
+                      <Typography>{u.username}</Typography>
                     </Button>
                   </div>
                 ))}
@@ -267,7 +278,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
             </Grid>
             <Grid item>
               <Typography className={classes.userName}>
-                {getUser(task.ownerId)?.name || "no User"}
+                {getUser(task.ownerId)?.username || "no User"}
               </Typography>
             </Grid>
           </Grid>
