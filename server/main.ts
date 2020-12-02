@@ -1,14 +1,9 @@
 import { Meteor } from "meteor/meteor";
-import { Accounts } from "meteor/accounts-base";
+import { Mongo } from "meteor/mongo";
+import { TasksCollection } from "../imports/api/TasksCollection";
+import { Task } from "/imports/types/Task";
 
-const SEED_USERNAME = "test";
-const SEED_PASSWORD = "test";
+const insertTask = (task: Mongo.OptionalId<Task>) =>
+  TasksCollection.insert(task);
 
-Meteor.startup(() => {
-  if (!Accounts.findUserByUsername(SEED_USERNAME)) {
-    Accounts.createUser({
-      username: SEED_USERNAME,
-      password: SEED_PASSWORD,
-    });
-  }
-});
+Meteor.startup(() => {});
