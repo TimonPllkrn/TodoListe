@@ -4,7 +4,7 @@ import { useTracker } from "meteor/react-meteor-data";
 import { TasksCollection } from "../api/TasksCollection";
 import { TaskDialog } from "./TaskDialog";
 import { Header } from "./Header";
-import { Divider, TextField, Typography } from "@material-ui/core";
+import { Divider, MenuItem, TextField, Typography } from "@material-ui/core";
 import { useStyles } from "./Dashboard.style";
 import { Category } from "../types/Category";
 import { User } from "../types/User";
@@ -62,6 +62,8 @@ export const Dashboard = () => {
   const [todoFilter, setTodoFilter] = useState("");
   const [doneFilter, setDoneFilter] = useState("");
 
+  const [category, setCategory] = useState<Category | undefined>(undefined);
+
   const doneTasks = useTracker(() =>
     TasksCollection.find(
       { done: { $ne: false } },
@@ -81,6 +83,11 @@ export const Dashboard = () => {
   const handleDoneInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDoneFilter(event.currentTarget.value);
   };
+  const handleCategoryChange = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) => {
+    setCategory(getCategory(event.target.value as string));
+  };
 
   return (
     <div>
@@ -96,14 +103,31 @@ export const Dashboard = () => {
           <Typography variant="h5">ToDo ({tasks.length})</Typography>
           <div className={classes.flexGrow}></div>
           <TextField
+            style={{width: 200, marginRight: 20}}
             label="Search..."
             variant="outlined"
             onChange={handleTodoInput}
           />
+          <TextField
+            style={{width: 200}}
+            label="Category..."
+            select
+            variant="outlined"
+            value={category?._id || "None"}
+            onChange={handleCategoryChange}
+          >
+            <MenuItem value={undefined}>None</MenuItem>
+            {Categories.map((c) => (
+            <MenuItem key={c._id} value={c._id}>
+              {c.name}
+            </MenuItem>
+          ))}
+          </TextField>
         </div>
         <TaskList
           tasks={tasks.filter((task) =>
-            task.title.toLowerCase().includes(todoFilter.toLowerCase())
+            task.title.toLowerCase().includes(todoFilter.toLowerCase()) 
+            && (category === undefined || task.category?._id === category._id)
           )}
         />
       </div>
