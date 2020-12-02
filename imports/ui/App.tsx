@@ -45,13 +45,15 @@ export const App = () => {
           <Typography variant="h5">ToDo ({tasks.length})</Typography>
           <div className={classes.flexGrow}></div>
           <TextField
-            label="Aufgabe suchen"
+            label="Search..."
             variant="outlined"
             onChange={handleTodoInput}
           />
         </div>
         <TaskList
-          tasks={tasks.filter((task) => task.title.includes(todoFilter))}
+          tasks={tasks.filter((task) =>
+            task.title.toLowerCase().includes(todoFilter.toLowerCase())
+          )}
         />
       </div>
       <Divider />
@@ -60,13 +62,15 @@ export const App = () => {
           <Typography variant="h5">Done ({doneTasks.length})</Typography>
           <div className={classes.flexGrow}></div>
           <TextField
-            label="Aufgabe suchen"
+            label="Search..."
             variant="outlined"
             onChange={handleDoneInput}
           />
         </div>
         <TaskList
-          tasks={doneTasks.filter((task) => task.title.includes(doneFilter))}
+          tasks={doneTasks.filter((task) =>
+            task.title.toLowerCase().includes(doneFilter.toLowerCase())
+          )}
         />
       </div>
     </div>
