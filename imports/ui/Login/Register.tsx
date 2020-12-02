@@ -1,11 +1,14 @@
 import { Accounts } from "meteor/accounts-base";
-import React from "react";
+import React, { useState } from "react";
 import { LoginForm } from "./LoginForm";
 
 export const Register = () => {
+  const [error, setError] = useState(false);
+
   const handleSignUp = (username: string, password: string) => {
+    setError(false);
     Accounts.createUser({ username, password }, (err) => {
-      console.log(err);
+      if (err) setError(true);
     });
   };
 
@@ -14,7 +17,11 @@ export const Register = () => {
       <LoginForm
         title="TodoList - Register"
         submitBtn={{ text: "Sign up", onClick: handleSignUp }}
-        userInputProps={{ autoComplete: "off" }}
+        userInputProps={{
+          autoComplete: "off",
+          error: error,
+          helperText: error ? "Username is not available." : "",
+        }}
         passwortInputProps={{
           autoComplete: "new-password",
         }}
