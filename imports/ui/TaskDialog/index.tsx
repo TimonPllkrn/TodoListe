@@ -8,13 +8,14 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
+import { Meteor } from "meteor/meteor";
+import { useTracker } from "meteor/react-meteor-data";
 import React from "react";
-import { Categories, getCategory, Users } from "../Dashboard";
+import { Categories, getCategory } from "../Dashboard";
 import { TasksCollection } from "/imports/api/TasksCollection";
 import { Category } from "/imports/types/Category";
 import { Priority } from "/imports/types/Priority";
 import { useStyles } from "/imports/ui/Task/Task.style";
-import { User } from "/imports/types/User";
 
 export const TaskDialog: React.FC = () => {
   const classes = useStyles();
@@ -24,7 +25,7 @@ export const TaskDialog: React.FC = () => {
   const [category, setCategory] = React.useState<Category | undefined>(
     undefined
   );
-  const [user, setUser] = React.useState<User | undefined>(undefined);
+  const [user, setUser] = React.useState<string>("");
 
   const handlePriorityChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
@@ -40,7 +41,7 @@ export const TaskDialog: React.FC = () => {
   const handleUserChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
-    setUser(getCategory(event.target.value as string));
+    setUser(event.target.value as string);
   };
 
   const handleSave = () => {
@@ -52,7 +53,7 @@ export const TaskDialog: React.FC = () => {
       title: title,
       category: category,
       done: false,
-      ownerId: user?._id || "-1",
+      ownerId: user ?? "-1",
       priority: Number(priority),
       createDate: new Date(),
       doneDate: undefined,
@@ -60,8 +61,12 @@ export const TaskDialog: React.FC = () => {
     setTitle("");
     setPriority(Priority.Medium);
     setCategory(undefined);
-    setUser(undefined);
+    setUser("");
   };
+
+  const Users = useTracker(() => {
+    return Meteor.users.find().fetch();
+  });
 
   return (
     <Box display="flex" flexWrap="wrap">
@@ -125,16 +130,16 @@ export const TaskDialog: React.FC = () => {
                 <InputLabel htmlFor="user">User</InputLabel>
                 <Select
                   fullWidth
-                  value={user?._id || ""}
+                  value={user ?? ""}
                   onChange={handleUserChange}
                   inputProps={{
                     id: "user",
                   }}
                 >
-                  <MenuItem value={undefined}>None</MenuItem>
+                  <MenuItem value="">None</MenuItem>
                   {Users.map((c) => (
                     <MenuItem value={c._id} key={c._id}>
-                      {c.name}
+                      {c.username}
                     </MenuItem>
                   ))}
                 </Select>

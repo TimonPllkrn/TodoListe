@@ -11,5 +11,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginTop: "15em",
       textAlign: "center",
     },
+    login: {
+      marginLeft: "auto",
+      marginRight: "auto",
+      width: "max-content",
+      textAlign: "center",
+    },
   })
 );

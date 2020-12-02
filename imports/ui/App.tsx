@@ -8,7 +8,6 @@ import { Meteor } from "meteor/meteor";
 
 export const App = () => {
   const user = useTracker(() => Meteor.user());
-  console.log(user);
 
   return (
     <>
