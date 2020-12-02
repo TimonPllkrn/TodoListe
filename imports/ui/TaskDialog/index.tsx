@@ -1,15 +1,21 @@
-import {Box, Button, InputLabel, Select, TextField} from '@material-ui/core'
+import {Box, Button, InputLabel, MenuItem, Paper, Select, TextField} from '@material-ui/core'
 import React from 'react'
-import { Categories, getCategory } from '../App';
+import {Categories, getCategory, Users} from '../App';
 import {TasksCollection} from '/imports/api/TasksCollection';
 import {Category} from '/imports/types/Category';
 import {Priority} from '/imports/types/Priority';
+import {useStyles} from "/imports/ui/Task/Task.style";
+import {User} from "/imports/types/User";
 
 
 export const TaskDialog: React.FC = () => {
+
+  const classes = useStyles();
+
   const [title, setTitle] = React.useState("");
   const [priority, setPriority] = React.useState<Priority>(Priority.Medium);
   const [category, setCategory] = React.useState<Category | undefined>(undefined);
+  const [user, setUser] = React.useState<User | undefined>(undefined);
 
   const handlePriorityChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
     setPriority(event.target.value as Priority);
@@ -17,6 +23,9 @@ export const TaskDialog: React.FC = () => {
 
   const handleCategoryChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
     setCategory(getCategory(event.target.value as string));
+  };
+  const handleUserChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    setUser(getCategory(event.target.value as string));
   };
 
   const handleSave = () => {
@@ -37,54 +46,78 @@ export const TaskDialog: React.FC = () => {
     setTitle("");
     setPriority(Priority.Medium);
     setCategory(undefined)
-
+    setUser(undefined)
   }
 
   return (
     <div>
-      <Box mx={2}>
-        <TextField
-          label="Title"
-          margin="dense"
-          value={title}
-          onChange={(t) => {
-            setTitle(t.target.value)
-          }}
-        />
-      </Box>
+      <Paper
+        className={classes.paper}
+        elevation={5}
+      >
+        <Box mx={2}>
+          <TextField
+            fullWidth
+            label="Title"
+            margin="dense"
+            value={title}
+            onChange={(t) => {
+              setTitle(t.target.value)
+            }}
+          />
+        </Box>
 
-      <Box mt={3} mx={2}>
-        <InputLabel htmlFor="priority">Priority</InputLabel>
-        <Select
-          value={priority}
-          onChange={handlePriorityChange}
-          native
-          inputProps={{
-            id: 'priority'
-          }}
-        >
-          <option value={Priority.Low}>Low</option>
-          <option value={Priority.Medium}>Medium</option>
-          <option value={Priority.High}>High</option>
-        </Select>
-      </Box>
-      <Box my={3} mx={2}>
-        <InputLabel htmlFor="category">Category</InputLabel>
-        <Select
-          value={category?._id || ""}
-          onChange={handleCategoryChange}
-          native
-          inputProps={{
-            id: 'category'
-          }}
-        >
-          <option value={undefined}>None</option>
-          {Categories.map(c => (<option value={c._id} key={c._id}>{c.name}</option>))}
-        </Select>
-      </Box>
-      <Button onClick={handleSave} color="primary">
-        Save
-      </Button>
+        <Box mt={3} mx={2}>
+          <InputLabel htmlFor="priority">Priority</InputLabel>
+          <Select
+            fullWidth
+            value={priority}
+            onChange={handlePriorityChange}
+            inputProps={{
+              id: 'priority'
+            }}
+          >
+            <MenuItem value={Priority.Low}>Low</MenuItem>
+            <MenuItem value={Priority.Medium}>Medium</MenuItem>
+            <MenuItem value={Priority.High}>High</MenuItem>
+          </Select>
+        </Box>
+        <Box my={3} mx={2}>
+          <InputLabel htmlFor="category">Category</InputLabel>
+          <Select
+            fullWidth
+            value={category?._id || ""}
+            onChange={handleCategoryChange}
+            inputProps={{
+              id: 'category'
+            }}
+          >
+            <MenuItem value={undefined}>None</MenuItem>
+            {Categories.map(c => (<MenuItem value={c._id} key={c._id}>{c.name}</MenuItem>))}
+          </Select>
+        </Box>
+        <Box my={3} mx={2}>
+          <InputLabel htmlFor="user">User</InputLabel>
+          <Select
+            fullWidth
+            value={user?._id || ""}
+            onChange={handleUserChange}
+            inputProps={{
+              id: 'user'
+            }}
+          >
+            <MenuItem value={undefined}>None</MenuItem>
+            {Users.map(c => (<MenuItem value={c._id} key={c._id}>{c.name}</MenuItem>))}
+          </Select>
+        </Box>
+        <div className={classes.flex}>
+          <div className={classes.flexGrow}>
+          </div>
+          <Button className={classes.button} onClick={handleSave} color="primary">
+            Save
+          </Button>
+        </div>
+      </Paper>
     </div>
   )
 }
