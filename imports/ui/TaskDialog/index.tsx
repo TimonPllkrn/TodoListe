@@ -25,7 +25,7 @@ export const TaskDialog: React.FC = () => {
   const [category, setCategory] = React.useState<Category | undefined>(
     undefined
   );
-  const [user, setUser] = React.useState<Meteor.User | undefined>(undefined);
+  const [user, setUser] = React.useState<string>("");
 
   const handlePriorityChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
@@ -41,7 +41,7 @@ export const TaskDialog: React.FC = () => {
   const handleUserChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
-    setUser(getCategory(event.target.value as string));
+    setUser(event.target.value as string);
   };
 
   const handleSave = () => {
@@ -53,7 +53,7 @@ export const TaskDialog: React.FC = () => {
       title: title,
       category: category,
       done: false,
-      ownerId: user?._id || "-1",
+      ownerId: user ?? "-1",
       priority: Number(priority),
       createDate: new Date(),
       doneDate: undefined,
@@ -61,7 +61,7 @@ export const TaskDialog: React.FC = () => {
     setTitle("");
     setPriority(Priority.Medium);
     setCategory(undefined);
-    setUser(undefined);
+    setUser("");
   };
 
   const Users = useTracker(() => {
@@ -130,13 +130,13 @@ export const TaskDialog: React.FC = () => {
                 <InputLabel htmlFor="user">User</InputLabel>
                 <Select
                   fullWidth
-                  value={user?._id || ""}
+                  value={user ?? ""}
                   onChange={handleUserChange}
                   inputProps={{
                     id: "user",
                   }}
                 >
-                  <MenuItem value={undefined}>None</MenuItem>
+                  <MenuItem value="">None</MenuItem>
                   {Users.map((c) => (
                     <MenuItem value={c._id} key={c._id}>
                       {c.username}
