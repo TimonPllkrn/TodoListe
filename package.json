@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "test": "export TEST_BROWSER_DRIVER='puppeteer'; meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
   },
@@ -20,11 +20,16 @@
   },
   "devDependencies": {
     "@types/date-fns": "^2.6.0",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/meteor": "^1.4.49",
     "@types/mocha": "^8.0.3",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "puppeteer": "^5.5.0",
     "typescript": "^4.0.2"
   },
   "meteor": {
@@ -32,6 +37,6 @@
       "client": "client/main.tsx",
       "server": "server/main.ts"
     },
-    "testModule": "tests/main.tests.js"
+    "testModule": "tests/main.tests.tsx"
   }
 }
