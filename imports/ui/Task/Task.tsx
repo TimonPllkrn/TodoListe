@@ -165,11 +165,11 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
           <Grid container wrap="nowrap" alignItems="center">
             <Grid item xs={2}>
               {editTitle ? (
-                <IconButton color="primary" onClick={handleEditClick}>
+                <IconButton id="titleCheckButton" color="primary" onClick={handleEditClick}>
                   <CheckCircleIcon />
                 </IconButton>
               ) : (
-                <IconButton color="primary" onClick={() => setEditTitle(true)}>
+                <IconButton id="titleEditButton" color="primary" onClick={() => setEditTitle(true)}>
                   <EditIcon />
                 </IconButton>
               )}
@@ -177,6 +177,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
             <Grid item xs={7}>
               {editTitle ? (
                 <TextField
+                  id="titleInput"
                   value={title}
                   onKeyDown={handleKeyDown}
                   onChange={(t) => {
@@ -196,14 +197,16 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
         </div>
         <Divider />
         <div className={classes.section}>
-          <Button onClick={handleChipClick}>
+          <Button id="categoryEditButton" onClick={handleChipClick}>
             <Chip
+              id="categoryChip"
               className={classes.chip}
               label={task.category?.name || "None"}
               style={{ backgroundColor: task.category?.color }}
             />
           </Button>
           <Popover
+            id="categoriesPopover"
             open={categoriesOpen}
             onClose={() => setAnchorCategories(null)}
             anchorEl={anchorCategories}
@@ -237,6 +240,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
             ))}
           </Popover>
           <IconButton
+            id="priorityButton"
             size="small"
             onClick={() => updatePriority(task._id, task.priority)}
           >
@@ -291,10 +295,10 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
 const getPriorityIcon = (p: Priority) => {
   switch (p) {
     case Priority.High:
-      return <ExpandLessIcon fontSize="large" color="secondary" />;
+      return <ExpandLessIcon id="expandLessIcon" fontSize="large" color="secondary" />;
     case Priority.Medium:
-      return <RemoveIcon fontSize="large" />;
+      return <RemoveIcon id="removeIcon" fontSize="large" />;
     case Priority.Low:
-      return <ExpandMoreIcon fontSize="large" color="primary" />;
+      return <ExpandMoreIcon id="expandMoreIcon" fontSize="large" color="primary" />;
   }
 };
