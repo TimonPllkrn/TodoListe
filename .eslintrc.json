@@ -1,0 +1,14 @@
+{
+    "plugins": [
+      "prettier"
+    ],
+    "extends": [
+      "plugin:prettier/recommended",
+      "prettier"
+    ],
+    "env": {
+      "es6": true,
+      "browser": true
+    }
+  }
+  
