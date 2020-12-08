@@ -206,11 +206,6 @@
         "signature": "cd6efb9467a8b6338ece2e2855e37765700f2cd061ca54b01b33878cf5c7677e",
         "affectsGlobalScope": true
       },
-      "./eslintrc.js": {
-        "version": "9f701529efc590b4ee92858e4bd087ca5fc86b0bcac6d24ab260b9cd33f91e26",
-        "signature": "ea1bdbc821c50e4b55e2e7340824c69e0d5be0ab947c08d1e45a566425f38a77",
-        "affectsGlobalScope": true
-      },
       "./node_modules/@types/react/global.d.ts": {
         "version": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
         "signature": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
@@ -2333,7 +2328,7 @@
       },
       "./imports/ui/Task/Task.style.tsx": {
         "version": "26a916b63c0f5ebb870b6f3fef698c6bd71a565555ce4f23cf96260c31f2007d",
-        "signature": "da247adf540ad9397cf8b5af094ade32eef1a008ac625d68ce0dec06d9101ba8",
+        "signature": "0970ac83357a4e6fcf4a4a22c54de78986318db0512daaaa2c5b904baf79a2c7",
         "affectsGlobalScope": false
       },
       "./node_modules/@material-ui/icons/ExpandMore.d.ts": {
@@ -2377,7 +2372,7 @@
         "affectsGlobalScope": false
       },
       "./imports/ui/Task/Task.tsx": {
-        "version": "7817929215bd313351c7c756ef38cbf96d08049137f57678b9e7898640d098ad",
+        "version": "977ddf7b48e5006c18ddf79a8dd354d49752c42ddbc30b1b46a9ca1556252d28",
         "signature": "a4edb1c9d6f32e312f70759053dedfe1b2db7698e99dee45d1a713fcdbd9bcd3",
         "affectsGlobalScope": false
       },
@@ -2393,7 +2388,7 @@
       },
       "./imports/ui/Header/Header.style.tsx": {
         "version": "5f25b5d06baf0f1dbae8c24a7fc6ffd1a5c817b929fc1f5a3543fc4b9b526116",
-        "signature": "fd02260c49955c36a2e1d4beb564f99e899e52950384542d025fe1fbefffba4d",
+        "signature": "a4f3a6a0bfec28e2a7c6e4d57bafac56a0e3405b0e4c05bf99a3ab7c1a83b455",
         "affectsGlobalScope": false
       },
       "./imports/ui/Header/index.tsx": {
@@ -2403,7 +2398,7 @@
       },
       "./imports/ui/Dashboard.style.tsx": {
         "version": "f4cf57dbe3fc5ef80d364e6a242fc71cf5c383659c6f92e399f624c9cebf6980",
-        "signature": "216705b952e8e7703601135a39ea1c0976e2c9458a131dd5cc9a27720c97c779",
+        "signature": "d7699a89251e0798ffb33383daf9ec2158ba2ce582dd3c63df7c8b1e1e7206de",
         "affectsGlobalScope": false
       },
       "./imports/ui/Dashboard.tsx": {
@@ -2507,8 +2502,8 @@
         "affectsGlobalScope": false
       },
       "./package.json": {
-        "version": "e14a56cb22aad23a6d35332be73bd2af9d25f9e31ff95d860d2dc8b088cc8eeb",
-        "signature": "8c0bfea58027b8ad7d92bd32a92e2d18fbf3c45366f55aa1ae654cb670d3c748",
+        "version": "3d56b38d140eb34fae5541c174ac0404c8bff9603ac0ac7775e5f6b753b223cb",
+        "signature": "45404968eae4b42fb143b4d38d04e19d42abde4e18493654bdc21c16f60c9c67",
         "affectsGlobalScope": true
       },
       "./tests/main.tests.tsx": {
@@ -6461,7 +6456,6 @@
     },
     "semanticDiagnosticsPerFile": [
       "./client/main.tsx",
-      "./eslintrc.js",
       "./imports/api/TasksCollection.ts",
       "./imports/types/Category.ts",
       "./imports/types/Priority.ts",
