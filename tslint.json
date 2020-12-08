@@ -5,6 +5,10 @@
     "tslint-eslint-rules",
     "tslint-config-prettier"
   ],
+  "rules": {
+    "no-constant-condition": true,
+    "max-len": ["error", { "tabWidth": 2 }]
+  },
   "env": {
     "es6": true,
     "browser": true

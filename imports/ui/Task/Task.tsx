@@ -63,11 +63,11 @@ const updateCategory = (_id: string, _cId: string | undefined) => {
 };
 
 export const updateTitle = (_id: string, title: string) => {
-  TasksCollection.update(_id, {
-    $set: {
-      title: title,
-    },
-  });
+    TasksCollection.update(_id, {
+        $set: {
+          title: title,
+        },
+    });
 };
 
 export const updateUser = (_id: string, _uId: string) => {
@@ -79,7 +79,7 @@ export const updateUser = (_id: string, _uId: string) => {
 };
 
 export const Task: React.FC<TaskProps> = ({ task }) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   const [
     anchorCategories,
