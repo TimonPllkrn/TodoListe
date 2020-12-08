@@ -29,7 +29,7 @@ export interface TaskProps {
   task: TaskType;
 }
 
-const updateDone = (_id: string , done: boolean) => {
+const updateDone = (_id: string, done: boolean) => {
   TasksCollection.update(_id, {
     $set: {
       done: done,
@@ -79,7 +79,7 @@ export const updateUser = (_id: string, _uId: string) => {
 };
 
 export const Task: React.FC<TaskProps> = ({ task }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   const [
     anchorCategories,
