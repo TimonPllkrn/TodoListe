@@ -1,0 +1,22 @@
+language: node_js
+
+before_install:
+- curl https://install.meteor.com | /bin/sh
+- export PATH=$HOME/.meteor:$PATH
+
+install:
+- meteor npm install
+
+script:
+- meteor npm run test
+
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  api_key:
+    secure: tj0rRW0Q8hgkKqIckFMzQjtXV/ZwCiR3wjtuG/iBCxSPaTZ3t740d2f5ssTlYB40RhM5vFEw63AKPWHFEGtC7QqZ/KmYiVsSJw4cmv06BwDBC2LG4TXdJjMo891t1DE7+k7DIPj2XP/ri+lYguOhMB7l+rpiA0flnxhsDc+z0ZFF8qT/vIt/OGDZktq7B46aaenMq1Dr1zdsU/zlF5LItliSdYsAV+0e3NQGr19+mfiBfNkLd7ZM9UoKv728vFmrtQk6GTFBM2W0awiJNQGMzdneUHSPQr65SxhecU7ATLILQzsOOyHxlBPj+CuGM7VCcyYOudLV0FzMqWNWpTq3qMeiP32jDI0D9/JRsUvzS7p4kW/kmoRzoUYaQcEO+SS11kaiYXcudYjoPfRqp9Wr1IM2hcVLtqaECgqorxpvC0M/jTxN1Z4JYdOGDx/rKWEiLXBYyYFg4gwPWsy/sDvVPYKFJjWaafT6JiTWB4ogT6ikCxlUQaaYHvJkbIPLkUWzYrlnbIrfPqngrLTeNTzsV/YjID16ipeI0VLNAhV7NjPAabN90db1gZMoxGckPsY4m37GTpHHgYklyHr32alqy70B2YeyVlr50nwdBV3NPR2fZ6WU5UCkiPgVSfK8Qjff6YmU8aUIOKYSB6TSHVKNe/lJ1H/qDytNuVPY5ZlRqd4=
+  app: kms-todo-liste
+  on:
+    branch: master
+
+cache: npm
