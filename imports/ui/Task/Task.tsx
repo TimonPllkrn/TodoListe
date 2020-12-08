@@ -29,9 +29,7 @@ export interface TaskProps {
   task: TaskType;
 }
 
-const bla = "d";
-
-const updateDone = (_id: string, done: boolean) => {
+const updateDone = (_id: string , done: boolean) => {
   TasksCollection.update(_id, {
     $set: {
       done: done,
