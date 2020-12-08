@@ -3,6 +3,9 @@
       "tslint:latest",
       "tslint-config-prettier"
     ],
+    "scripts": {
+      "tslint-check": "tslint-config-prettier-check ./tslint.json"
+    },
     "env": {
       "es6": true,
       "browser": true
