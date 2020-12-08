@@ -165,11 +165,19 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
           <Grid container wrap="nowrap" alignItems="center">
             <Grid item xs={2}>
               {editTitle ? (
-                <IconButton id="titleCheckButton" color="primary" onClick={handleEditClick}>
+                <IconButton
+                  id="titleCheckButton"
+                  color="primary"
+                  onClick={handleEditClick}
+                >
                   <CheckCircleIcon />
                 </IconButton>
               ) : (
-                <IconButton id="titleEditButton" color="primary" onClick={() => setEditTitle(true)}>
+                <IconButton
+                  id="titleEditButton"
+                  color="primary"
+                  onClick={() => setEditTitle(true)}
+                >
                   <EditIcon />
                 </IconButton>
               )}
@@ -295,10 +303,18 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
 const getPriorityIcon = (p: Priority) => {
   switch (p) {
     case Priority.High:
-      return <ExpandLessIcon id="expandLessIcon" fontSize="large" color="secondary" />;
+      return (
+        <ExpandLessIcon
+          id="expandLessIcon"
+          fontSize="large"
+          color="secondary"
+        />
+      );
     case Priority.Medium:
       return <RemoveIcon id="removeIcon" fontSize="large" />;
     case Priority.Low:
-      return <ExpandMoreIcon id="expandMoreIcon" fontSize="large" color="primary" />;
+      return (
+        <ExpandMoreIcon id="expandMoreIcon" fontSize="large" color="primary" />
+      );
   }
 };
