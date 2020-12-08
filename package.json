@@ -17,6 +17,7 @@
     "@material-ui/icons": "^4.9.1",
     "bcrypt": "^5.0.0",
     "date-fns": "^2.16.1",
+    "eslint": "^7.15.0",
     "meteor-node-stubs": "^1.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
