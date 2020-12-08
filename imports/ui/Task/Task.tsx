@@ -29,6 +29,8 @@ export interface TaskProps {
   task: TaskType;
 }
 
+const bla = "";
+
 const updateDone = (_id: string, done: boolean) => {
   TasksCollection.update(_id, {
     $set: {
@@ -38,7 +40,7 @@ const updateDone = (_id: string, done: boolean) => {
   });
 };
 
-export const updatePriority = (_id: string , priority: Priority) => {
+export const updatePriority = (_id: string, priority: Priority) => {
   TasksCollection.update(_id, {
     $set: {
       priority: ((Number(priority) + 1) % 3) as Priority,
