@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { TaskList } from "./Task";
-import { useTracker } from "meteor/react-meteor-data";
-import { TasksCollection } from "../api/TasksCollection";
-import { TaskDialog } from "./TaskDialog";
-import { Header } from "./Header";
-import { Divider, MenuItem, TextField, Typography } from "@material-ui/core";
-import { useStyles } from "./Dashboard.style";
-import { Category } from "../types/Category";
+import React, {useState} from "react";
+import {TaskList} from "./Task";
+import {useTracker} from "meteor/react-meteor-data";
+import {TasksCollection} from "../api/TasksCollection";
+import {TaskDialog} from "./TaskDialog";
+import {Header} from "./Header";
+import {Divider, MenuItem, TextField, Typography} from "@material-ui/core";
+import {useStyles} from "./Dashboard.style";
+import {Category} from "../types/Category";
 
 // hard coded categories
 export const Categories: Category[] = [
@@ -41,14 +41,14 @@ export const Dashboard = () => {
 
   const doneTasks = useTracker(() =>
     TasksCollection.find(
-      { done: { $ne: false } },
-      { sort: { doneDate: 1 } }
+      {done: {$ne: false}},
+      {sort: {doneDate: 1}}
     ).fetch()
   );
   const tasks = useTracker(() =>
     TasksCollection.find(
-      { done: { $ne: true } },
-      { sort: { createDate: 1 } }
+      {done: {$ne: true}},
+      {sort: {createDate: 1}}
     ).fetch()
   );
 
@@ -66,24 +66,27 @@ export const Dashboard = () => {
 
   return (
     <div>
-      <Header />
-      <div className={classes.section}>
+      <Header/>
+      <div className={classes.section} id="taskCreate">
         <div className={classes.sectionHeader}>
           <Typography variant="h5">Create new Task</Typography>
         </div>
         <TaskDialog></TaskDialog>
       </div>
-      <div className={classes.section}>
+      <div className={classes.section} id="taskToDoList">
         <div className={classes.sectionHeader}>
           <Typography variant="h5">ToDo ({tasks.length})</Typography>
           <div className={classes.flexGrow}></div>
           <TextField
+            id="SearchStringTodo"
+            value={todoFilter}
             style={{width: 200, marginRight: 20}}
             label="Search..."
             variant="outlined"
             onChange={handleTodoInput}
           />
           <TextField
+            id="SearchCategoryTodo"
             style={{width: 200}}
             label="Category..."
             select
@@ -93,21 +96,21 @@ export const Dashboard = () => {
           >
             <MenuItem value={undefined}>None</MenuItem>
             {Categories.map((c) => (
-            <MenuItem key={c._id} value={c._id}>
-              {c.name}
-            </MenuItem>
-          ))}
+              <MenuItem key={c._id} value={c._id}>
+                {c.name}
+              </MenuItem>
+            ))}
           </TextField>
         </div>
         <TaskList
           tasks={tasks.filter((task) =>
-            task.title.toLowerCase().includes(todoFilter.toLowerCase()) 
+            task.title.toLowerCase().includes(todoFilter.toLowerCase())
             && (category === undefined || task.category?._id === category._id)
           )}
         />
       </div>
-      <Divider />
-      <div className={classes.section}>
+      <Divider/>
+      <div className={classes.section} id="taskDoneList">
         <div className={classes.sectionHeader}>
           <Typography variant="h5">Done ({doneTasks.length})</Typography>
           <div className={classes.flexGrow}></div>
