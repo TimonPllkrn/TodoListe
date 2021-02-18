@@ -6,7 +6,6 @@
     "tslint-config-prettier"
   ],
   "rules": {
-    "no-constant-condition": true,
     "max-len": ["error", { "tabWidth": 2 }]
   },
   "env": {
