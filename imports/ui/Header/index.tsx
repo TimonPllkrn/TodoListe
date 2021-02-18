@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" color='primary'>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h4">ToDo-App</Typography>
         <div className={classes.flexGrow} />
