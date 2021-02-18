@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: any) => {
-    setAnchorEl(event.currentTarget)
+                    setAnchorEl(event.currentTarget)
   };
 
   const handleClose = () => {
