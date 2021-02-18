@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "rules": {
+    "max-len": ["error", { "tabWidth": 2 }]
+  },
+  "env": {
+    "es6": true,
+    "browser": true
+  }
+}
