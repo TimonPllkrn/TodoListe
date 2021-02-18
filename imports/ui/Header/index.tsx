@@ -9,7 +9,7 @@ import {
 import { Meteor } from "meteor/meteor";
 import { useStyles } from "./Header.style";
 import { useTracker } from "meteor/react-meteor-data";
-import Menu from "@material-ui/core/Menu";
+import Menu from '@material-ui/core/Menu';
 import MenuItem from "@material-ui/core/MenuItem";
 import IconButton from "@material-ui/core/IconButton";
 
