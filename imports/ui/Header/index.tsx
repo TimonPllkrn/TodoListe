@@ -19,8 +19,8 @@ export const Header: React.FC = () => {
   const logout = () => Meteor.logout();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (event: any) => {
+                    setAnchorEl(event.currentTarget)
   };
 
   const handleClose = () => {
@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" color='primary'>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h4">ToDo-App</Typography>
         <div className={classes.flexGrow} />
