@@ -63,11 +63,11 @@ const updateCategory = (_id: string, _cId: string | undefined) => {
 };
 
 export const updateTitle = (_id: string, title: string) => {
-    TasksCollection.update(_id, {
-        $set: {
-          title: title,
-        },
-    });
+  TasksCollection.update(_id, {
+    $set: {
+      title,
+    },
+  });
 };
 
 export const updateUser = (_id: string, _uId: string) => {
@@ -153,6 +153,9 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
       </IconButton>
     </div>
   );
+  const handleEditTitle = () => {
+    setEditTitle(true);
+  };
 
   return (
     <Paper
@@ -176,7 +179,7 @@ export const Task: React.FC<TaskProps> = ({ task }) => {
                 <IconButton
                   id="titleEditButton"
                   color="primary"
-                  onClick={() => setEditTitle(true)}
+                  onClick={handleEditTitle}
                 >
                   <EditIcon />
                 </IconButton>
