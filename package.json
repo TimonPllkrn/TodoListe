@@ -9,7 +9,7 @@
     "test-app-win": "set TEST_WATCH=1&& meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "format": "prettier --write src/**/*.ts{,x}",
-    "lint": "tslint ./imports/**/*.ts{,x}"
+    "lint": "tslint './imports/**/*.ts{,x}'"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2",
